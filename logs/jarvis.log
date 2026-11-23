@@ -1,0 +1,12 @@
+[2026-11-23 16:36:42] [INFO] Initialized Google GenAI SDK client successfully
+[2026-11-23 16:36:42] [WARN] SDK call failed, attempting REST fallback: fetch failed
+[2026-11-23 16:40:16] [INFO] Connected to SQLite database at: C:\Users\syedm\.gemini\antigravity\scratch\jarvis-i5-assistant\database\jarvis_data.db
+[2026-11-23 16:40:16] [INFO] Seeding initial tables (departments, employees, products, customers, orders)...
+[2026-11-23 16:40:16] [ERROR] Failed to seed sample database data {"error":"near \"s\": syntax error","stack":"Error: near \"s\": syntax error\n    at SqlEngine.seedSampleData (file:///C:/Users/syedm/.gemini/antigravity/scratch/jarvis-i5-assistant/src/tools/sql_engine.js:40:15)\n    at SqlEngine.initDatabase (file:///C:/Users/syedm/.gemini/antigravity/scratch/jarvis-i5-assistant/src/tools/sql_engine.js:23:12)\n    at new SqlEngine (file:///C:/Users/syedm/.gemini/antigravity/scratch/jarvis-i5-assistant/src/tools/sql_engine.js:16:10)\n    at file:///C:/Users/syedm/.gemini/antigravity/scratch/jarvis-i5-assistant/src/tools/sql_engine.js:251:26\n    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:650:26)\n    at async importModuleDynamicallyWrapper (node:internal/vm/module:525:15)"}
+[2026-11-23 16:40:29] [INFO] Connected to SQLite database at: C:\Users\syedm\.gemini\antigravity\scratch\jarvis-i5-assistant\database\jarvis_data.db
+[2026-11-23 16:40:29] [INFO] Seeding initial tables (departments, employees, products, customers, orders)...
+[2026-11-23 16:40:29] [SUCCESS] Database seeded with sample records successfully.
+[2026-11-23 16:45:18] [INFO] Connected to SQLite database at: C:\Users\syedm\.gemini\antigravity\scratch\jarvis-i5-assistant\database\jarvis_data.db
+[2026-11-23 16:45:26] [SUCCESS] Animated character template generated at: C:\Users\syedm\.gemini\antigravity\scratch\jarvis-i5-assistant\media\characters\diagnostic_character.html
+[2026-11-23 16:45:55] [INFO] Connected to SQLite database at: C:\Users\syedm\.gemini\antigravity\scratch\jarvis-i5-assistant\database\jarvis_data.db
+[2026-11-23 16:46:03] [SUCCESS] Animated character template generated at: C:\Users\syedm\.gemini\antigravity\scratch\jarvis-i5-assistant\media\characters\diagnostic_character.html

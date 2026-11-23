@@ -1,0 +1,30 @@
+{
+  "name": "jarvis-i5-assistant",
+  "version": "2.0.0",
+  "description": "Jarvis 24/7 AI Personal Assistant optimized for Intel Core i5 with computer control, code generation, SQL studio, bug hunting, and video/animated character editing",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:console": "node src/index.js --console",
+    "start:background": "cscript //nologo bin/Start-Jarvis-Background.vbs",
+    "stop": "node bin/stop.js",
+    "test:i5": "node test/test_i5.js"
+  },
+  "keywords": [
+    "jarvis",
+    "ai-assistant",
+    "intel-i5",
+    "voice-assistant",
+    "computer-control",
+    "sql-engine",
+    "video-editor"
+  ],
+  "author": "Antigravity AI",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^3.2.0",
+    "dotenv": "^16.4.7",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JARVIS AI - Intel Core i5 Control Center</title>
+  <link rel="stylesheet" href="css/hud.css">
+</head>
+<body>
+
+  <!-- TOP STATUS BAR -->
+  <header class="hud-header">
+    <div class="logo-area">
+      <div class="arc-mini"></div>
+      <div class="title-text">
+        <h1>JARVIS AI</h1>
+        <span>24/7 Intel Core i5 Neural Hub</span>
+      </div>
+    </div>
+    <div class="telemetry-badges">
+      <div class="badge">
+        <span class="status-dot" id="wsStatusDot"></span>
+        <span id="wsStatus">ONLINE (24/7)</span>
+      </div>
+      <div class="badge" id="cpuBadge">Intel Core i5 (x64)</div>
+      <div class="badge" id="ramBadge">RAM: Loading...</div>
+      <div class="badge" id="uptimeBadge">Uptime: 0m</div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-tabs">
+    <button class="tab-btn active" data-tab="tab-voice">🎙️ Voice & Intelligence</button>
+    <button class="tab-btn" data-tab="tab-control">💻 Computer Control</button>
+    <button class="tab-btn" data-tab="tab-code">👨‍💻 Code & Bug Hunter</button>
+    <button class="tab-btn" data-tab="tab-sql">🗄️ SQL Studio</button>
+    <button class="tab-btn" data-tab="tab-video">🎬 Video & Characters</button>
+  </nav>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="content-area">
+
+    <!-- 1. VOICE & ASSISTANT TAB -->
+    <section id="tab-voice" class="tab-pane active">
+      <div class="reactor-hero">
+        <div class="arc-core" id="arcCore" onclick="toggleVoiceListen()">
+          <div class="core-inner"></div>
+        </div>
+        <p class="hero-subtitle" id="listeningStatus">Say "Jarvis" or click the core to speak</p>
+      </div>
+
+      <div class="chat-container">
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg jarvis">
+            <strong>Jarvis:</strong> Systems initialized and standing by on your Intel Core i5 computer, sir. How may I assist you today?
+          </div>
+        </div>
+        <form class="chat-input-bar" onsubmit="handleChatSubmit(event)">
+          <input type="text" id="chatInput" placeholder="Ask Jarvis anything, write code, run SQL, or control PC..." autocomplete="off">
+          <button type="submit" class="btn-primary">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 2. COMPUTER CONTROL TAB -->
+    <section id="tab-control" class="tab-pane">
+      <div class="grid-2">
+        <div class="card">
+          <h3>🔊 Audio & System Volume</h3>
+          <div class="slider-group">
+            <label>Master Volume: <span id="volValue">50%</span></label>
+            <input type="range" min="0" max="100" value="50" onchange="adjustVolume(this.value)">
+          </div>
+          <div class="grid-2">
+            <button class="quick-btn" onclick="sendSystemControl('volume', { level: 0 })">🔇 Mute</button>
+            <button class="quick-btn" onclick="sendSystemControl('volume', { level: 80 })">🔊 Set 80%</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🖥️ Quick Actions</h3>
+          <div class="grid-2">
+            <button class="quick-btn" onclick="sendSystemControl('screenshot')">📸 Screenshot</button>
+            <button class="quick-btn" onclick="sendSystemControl('desktop')">🗂️ Show Desktop</button>
+            <button class="quick-btn" onclick="sendSystemControl('lock')">🔒 Lock Screen</button>
+            <button class="quick-btn" onclick="sendSystemControl('open_app', { app: 'code' })">💻 VS Code</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3>🚀 Application Launcher</h3>
+        <div class="grid-3">
+          <button class="quick-btn" onclick="sendSystemControl('open_app', { app: 'chrome' })">🌐 Google Chrome</button>
+          <button class="quick-btn" onclick="sendSystemControl('open_app', { app: 'notepad' })">📝 Notepad</button>
+          <button class="quick-btn" onclick="sendSystemControl('open_app', { app: 'calc' })">🧮 Calculator</button>
+          <button class="quick-btn" onclick="sendSystemControl('open_app', { app: 'explorer' })">📁 File Explorer</button>
+          <button class="quick-btn" onclick="sendSystemControl('open_app', { app: 'cmd' })">⚡ Terminal</button>
+          <button class="quick-btn" onclick="sendSystemControl('open_app', { app: 'spotify' })">🎵 Spotify</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CODE & BUG HUNTER TAB -->
+    <section id="tab-code" class="tab-pane">
+      <div class="grid-2">
+        <div class="card">
+          <h3>⚡ Code Generator</h3>
+          <input type="text" id="codeTaskInput" placeholder="E.g. Create a REST API in Python with rate limiting" style="width:100%; padding:10px; margin-bottom:12px; background:#000; border:1px solid var(--border-cyan); color:#fff; border-radius:6px;">
+          <div style="display:flex; gap:10px; margin-bottom:12px;">
+            <select id="codeLangSelect" style="background:#000; color:#00f0ff; border:1px solid var(--border-cyan); padding:8px 12px; border-radius:6px;">
+              <option value="python">Python</option>
+              <option value="javascript">JavaScript (Node.js)</option>
+              <option value="sql">SQL</option>
+              <option value="html">HTML / CSS / JS</option>
+              <option value="cpp">C++</option>
+              <option value="powershell">PowerShell</option>
+            </select>
+            <button class="btn-primary" onclick="generateCode()">Generate Code</button>
+            <button class="quick-btn" onclick="runCurrentScript()">▶ Run Script</button>
+          </div>
+          <span id="codePathLabel" style="font-size:12px; color:var(--text-dim);">Saved to: (Not generated yet)</span>
+          <pre id="codeOutput" style="margin-top:10px;">// Generated code will appear here...</pre>
+          <h4 style="margin-top:14px; font-size:13px; color:var(--cyan-primary);">Execution Output:</h4>
+          <pre id="codeRunLogs" style="margin-top:6px; min-height:80px;">(Awaiting run)</pre>
+        </div>
+
+        <div class="card">
+          <h3>🐞 Bug Hunter & Vulnerability Inspector</h3>
+          <textarea id="bugCodeInput" rows="10" placeholder="Paste code snippet with suspected bugs, syntax errors, or vulnerabilities here..."></textarea>
+          <button class="btn-primary" style="margin-top:12px;" onclick="inspectCodeBugs()">Inspect & Fix Bugs</button>
+          <pre id="bugReportOutput" style="margin-top:14px; min-height:220px;">// Bug analysis, line diagnostics, and corrected code will appear here...</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SQL STUDIO TAB -->
+    <section id="tab-sql" class="tab-pane">
+      <div class="grid-2">
+        <div class="card">
+          <h3>💡 Natural Language Query Solver</h3>
+          <input type="text" id="sqlNaturalInput" placeholder="E.g. Find top 3 employees with highest salary in Engineering" style="width:100%; padding:10px; margin-bottom:12px; background:#000; border:1px solid var(--border-cyan); color:#fff; border-radius:6px;">
+          <button class="btn-primary" onclick="solveNaturalSql()">Solve Query</button>
+
+          <h3 style="margin-top:20px;">⚡ SQL Query Editor</h3>
+          <textarea id="sqlQueryInput" rows="4">SELECT e.name, e.role, e.salary, d.name AS department FROM employees e JOIN departments d ON e.dept_id = d.id ORDER BY e.salary DESC;</textarea>
+          <button class="btn-primary" style="margin-top:10px;" onclick="runCustomSql()">Run Query</button>
+        </div>
+
+        <div class="card">
+          <h3>🗄️ Database Schema (SQLite)</h3>
+          <pre id="schemaTree" style="max-height:280px;">Loading tables and schemas...</pre>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3>📊 Query Results</h3>
+        <p id="sqlResultText" style="color:var(--text-dim); font-size:13px;">(Click Run Query to execute)</p>
+        <div class="table-responsive" id="sqlTableContainer"></div>
+      </div>
+    </section>
+
+    <!-- 5. VIDEO & ANIMATION TAB -->
+    <section id="tab-video" class="tab-pane">
+      <div class="grid-2">
+        <div class="card">
+          <h3>🎬 Animated Character Studio</h3>
+          <p style="font-size:13px; color:var(--text-dim); margin-bottom:14px;">Create procedural animated characters (Iron Jarvis Core, Cyber Robots) with speech bubbles, glow effects, and video export!</p>
+          <input type="text" id="charNameInput" placeholder="Character Name (e.g. Iron Jarvis)" style="width:100%; padding:10px; margin-bottom:12px; background:#000; border:1px solid var(--border-cyan); color:#fff; border-radius:6px;">
+          <input type="text" id="charDialogueInput" placeholder="Spoken Dialogue Caption" style="width:100%; padding:10px; margin-bottom:12px; background:#000; border:1px solid var(--border-cyan); color:#fff; border-radius:6px;">
+          <button class="btn-primary" onclick="createAnimatedCharacter()">Generate Character Package</button>
+          <div id="characterResult"></div>
+        </div>
+
+        <div class="card">
+          <h3>✂️ Video Editing Suite</h3>
+          <p style="font-size:13px; color:var(--text-dim); margin-bottom:14px;">Jarvis can autonomously trim, merge, speed up, add audio, and overlay animated characters onto your video clips.</p>
+          <ul style="font-size:13px; color:var(--text-main); line-height:1.8; margin-left:20px;">
+            <li><strong>Trim & Slice:</strong> Cut clips at exact start & end timestamps.</li>
+            <li><strong>Stitch Clips:</strong> Concatenate multiple video segments.</li>
+            <li><strong>Character Chroma-Key Overlay:</strong> Overlay animated characters onto background videos with green-screen removal.</li>
+            <li><strong>Background Music Mixer:</strong> Mix soundtracks and adjust voiceover levels.</li>
+            <li><strong>Animated GIF & Thumbnails:</strong> Convert clips to lightweight GIFs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/hud.js"></script>
+</body>
+</html>
